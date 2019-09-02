@@ -33,14 +33,14 @@ public class Menu {
             }
 
 
-            if(valg==2){
+            else if(valg==2){
                 saveToFile();
             }
 
-            if(valg==3){
+            else if(valg==3){
                 addMember();
             }
-            if(valg==0){
+            else if(valg==0){
                 runProgram=false;
             }
         }
@@ -69,20 +69,22 @@ public class Menu {
         fee = scanner.nextInt();
 
         members.add(new Member(forNavn, efterNavn, email, birthdate,
-                memberShipType, fee));
+                memberShipType));
 
         final String FNAME = "medlemmer.txt";
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(FNAME, true));
+
             for (Person m : members) {
                 if (m instanceof Member) {
                     String str = (forNavn + "," + efterNavn + "," + email + "," + birthdate + "," +
-                            memberShipType + "," + fee);
+                            memberShipType);
                     bw.write(str + "\n");
                 }
 
             }
+            bw.flush();
             bw.close();
         } catch (
                 IOException e) {
@@ -92,10 +94,12 @@ public class Menu {
 
     public void showStaffAndMembers(){
 
-        try (Scanner s = new Scanner(new File("medlemmer.txt")).useDelimiter(",")) {
-            while(s.hasNext())
+        try (Scanner s = new Scanner(new File("medlemmer.txt"))) {
+            while(s.hasNextLine())
             {
-                members.add(new Member(s.next(), s.next(), s.next(), s.next(), s.next(), s.nextInt()));
+                String str = s.nextLine();
+                Scanner skanner = new Scanner(str).useDelimiter(",");
+                        members.add(new Member(skanner.next(), skanner.next(), skanner.next(), skanner.next(), skanner.next()));
             }
         }
         catch (FileNotFoundException e) {
@@ -109,7 +113,7 @@ public class Menu {
         {
             if(m instanceof Member) {
                 System.out.println(m.getFirstname()+"\t\t\t\t"+m.getLastname()+"\t\t\t\t"+m.getEmail()+"\t\t"+m.getBirthdate()+"\t\t\t\t" +
-                        ((Member) m).getMembershipType()+"\t\t\t\t\t"+((Member) m).getFee());
+                        ((Member) m).getMemberType() + "\t\t\t" + ((Member) m).monthlyFee());
             }
         }
     }
@@ -178,9 +182,9 @@ public class Menu {
 
         List<Person> members = new ArrayList<>();
         members.add(new Member("Victor", "Madsen", "vm@hotmail.com", "17-01-1975",
-                "Premium", 299));
+                "Premium"));
         members.add(new Member("Brian", "Sand", "bkongen@live.dk", "17-02-1985",
-                "Basic", 199));
+                "Basic"));
         final String FNAME = "output.txt";
         BufferedWriter bw = null;
         try {
@@ -188,7 +192,7 @@ public class Menu {
             for (Person m : members) {
                 if (m instanceof Member) {
                     String str = (m.getFirstname() + "\t" + m.getLastname() + "\t" + m.getEmail() + "\t" + m.getBirthdate() + "\t" +
-                            ((Member) m).getMembershipType() + "\t" + ((Member) m).getFee());
+                            ((Member) m).getMemberType() + "\t" + ((Member) m).monthlyFee());
                     bw.write(str + "\n");
                 }
 
