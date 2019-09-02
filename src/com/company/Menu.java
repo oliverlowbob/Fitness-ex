@@ -92,10 +92,10 @@ public class Menu {
 
     public void showStaffAndMembers(){
 
-        try (Scanner s = new Scanner(new File("medlemmer.txt")).useDelimiter("\t")) {
-            while (s.hasNext()) {
-               //members.add(new Member(s.next(), s.next(), s.next(), s.next(), s.next(), s.nextInt()));
-                System.out.println(s.next());
+        try (Scanner s = new Scanner(new File("medlemmer.txt")).useDelimiter(",")) {
+            while(s.hasNext())
+            {
+                members.add(new Member(s.next(), s.next(), s.next(), s.next(), s.next(), s.nextInt()));
             }
         }
         catch (FileNotFoundException e) {
@@ -118,13 +118,10 @@ public class Menu {
                 37, 23000, 1337, 5));
         employees.add(new Instructor("Jonas", "Kofoed", "JonasTheKool@gmail.com", "24-07-2002",
                 4, 4*456, 1338));
-
-
         members.add(new Member("Victor", "Madsen", "vm@hotmail.com", "17-01-1975",
                 "Premium", true, 299));
         members.add(new Member("Brian", "Sand", "bkongen@live.dk", "17-02-1985",
                 "Basic", false, 199));
-
         System.out.println("EMPLOYEES");
         System.out.printf("Fornavn"+"\t\t\t\t"+"Efternavn"+"\t\t\t\t"+"Email"+"\t\t\t\t\t\t"+"Fødselsdato"+"\t\t\t\t"+
                 "Antal timer"+"\t\t\t\t"+"Løn"+"\t\t\t\t"+"Medarbejdernummer"+"\t\t"+"Ferieuger tilbage");
@@ -140,9 +137,7 @@ public class Menu {
                         +"\t\t\t\t"+((Administration) e).getHours()+"\t\t\t\t\t\t"+((Administration) e).getSalary()
                         +"\t\t\t\t"+((Administration) e).getStaffId()+"\t\t\t\t\t\t"+ ((Administration) e).getVacation());
             }
-
         }
-
         System.out.println("MEMBERS");
         System.out.println("Fornavn"+"\t\t\t\t"+"Efternavn"+"\t\t\t\t"+"Email"+"\t\t\t\t\t\t"+"Fødselsdato"+"\t\t\t\t"+
                 "Medlemstype"+"\t\t\t\t"+"Pris");
