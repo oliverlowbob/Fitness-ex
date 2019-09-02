@@ -51,4 +51,11 @@ public class Member extends Person {
     public void setFee(int fee) {
         this.fee = fee;
     }
+
+    public String toString(String str)
+    {
+        str = getFirstname()+getLastname()+getEmail()+getBirthdate()+getMembershipType()+getFee();
+        System.out.println(str);
+        return str;
+    }
 }

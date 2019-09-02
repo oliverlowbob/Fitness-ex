@@ -77,8 +77,8 @@ public class Menu {
             bw = new BufferedWriter(new FileWriter(FNAME, true));
             for (Person m : members) {
                 if (m instanceof Member) {
-                    String str = (forNavn + "\t" + efterNavn + "\t" + email + "\t" + birthdate + "\t" +
-                            memberShipType + "\t" + fee);
+                    String str = (forNavn + "," + efterNavn + "," + email + "," + birthdate + "," +
+                            memberShipType + "," + fee);
                     bw.write(str + "\n");
                 }
 
@@ -108,7 +108,7 @@ public class Menu {
         for(Person m : members)
         {
             if(m instanceof Member) {
-                System.out.println(m.getFirstname()+"\t\t\t\t"+m.getLastname()+"\t\t\t\t"+m.getEmail()+"\t\t\t\t\t"+m.getBirthdate()+"\t\t\t\t" +
+                System.out.println(m.getFirstname()+"\t\t\t\t"+m.getLastname()+"\t\t\t\t"+m.getEmail()+"\t\t"+m.getBirthdate()+"\t\t\t\t" +
                         ((Member) m).getMembershipType()+"\t\t\t\t\t"+((Member) m).getFee());
             }
         }
