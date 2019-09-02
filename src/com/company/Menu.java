@@ -9,6 +9,22 @@ public class Menu {
     List<Person> employees = new ArrayList<>();
     List<Person> members = new ArrayList<>();
 
+    public Menu() {
+
+
+        try (Scanner s = new Scanner(new File("medlemmer.txt"))) {
+            while(s.hasNextLine())
+            {
+                String str = s.nextLine();
+                Scanner skanner = new Scanner(str).useDelimiter(",");
+                members.add(new Member(skanner.next(), skanner.next(), skanner.next(), skanner.next(), skanner.next()));
+            }
+        }
+        catch (FileNotFoundException e) {
+            // Handle the potential exception
+        }
+
+    }
 
     public void runMenu(){
 
@@ -53,7 +69,8 @@ public class Menu {
         String email;
         String birthdate;
         String memberShipType;
-        int fee;
+
+
 
         System.out.println("Fornavn");
         forNavn = scanner.nextLine();
@@ -65,8 +82,7 @@ public class Menu {
         birthdate = scanner.nextLine();
         System.out.println("Medlemstype");
         memberShipType = scanner.nextLine();
-        System.out.println("Pris");
-        fee = scanner.nextInt();
+
 
         members.add(new Member(forNavn, efterNavn, email, birthdate,
                 memberShipType));
@@ -76,16 +92,23 @@ public class Menu {
         try {
             bw = new BufferedWriter(new FileWriter(FNAME, true));
 
-            for (Person m : members) {
-                if (m instanceof Member) {
+
+                if (members.size()==0) {
                     String str = (forNavn + "," + efterNavn + "," + email + "," + birthdate + "," +
                             memberShipType);
-                    bw.write(str + "\n");
+                    bw.write(str);
+
+                }
+                else if(members.size()>=1){
+                    for (int i = 1; i==members.size()+1; i++){
+                    String str = (forNavn + "," + efterNavn + "," + email + "," + birthdate + "," +
+                            memberShipType);
+                    bw.write("\n" + str);
+                }
+                    bw.flush();
+                    bw.close();
                 }
 
-            }
-            bw.flush();
-            bw.close();
         } catch (
                 IOException e) {
             e.printStackTrace();
@@ -94,17 +117,6 @@ public class Menu {
 
     public void showStaffAndMembers(){
 
-        try (Scanner s = new Scanner(new File("medlemmer.txt"))) {
-            while(s.hasNextLine())
-            {
-                String str = s.nextLine();
-                Scanner skanner = new Scanner(str).useDelimiter(",");
-                        members.add(new Member(skanner.next(), skanner.next(), skanner.next(), skanner.next(), skanner.next()));
-            }
-        }
-        catch (FileNotFoundException e) {
-            // Handle the potential exception
-        }
 
         System.out.println("MEMBERS");
         System.out.println("Fornavn"+"\t\t\t\t"+"Efternavn"+"\t\t\t\t"+"Email"+"\t\t\t\t\t\t"+"Fødselsdato"+"\t\t\t\t"+
